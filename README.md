@@ -1,8 +1,3 @@
-
-
-# Applied Databases Project  
-Conference Management System
-
 ## Project Description
 
 This repository contains the submission for the **Applied Databases** module, part of the **Higher Diploma in Science in Computing in Data Analytics at ATU**.
