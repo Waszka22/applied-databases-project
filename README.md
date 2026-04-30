@@ -13,7 +13,21 @@ This repository contains the submission for the **Applied Databases** module, pa
 - View Rooms 
 - Exit application
 
-## ✨ Application Features
+---
+## Application Features
+
+| Feature                     | Description                                      |
+|----------------------------|--------------------------------------------------|
+| View Speakers & Sessions   | Browse speakers and their sessions               |
+| View Attendees by Company  | See attendees grouped by company                 |
+| Add New Attendee           | Add a new attendee to the system                 |
+| View Connected Attendees   | View attendee connections                        |
+| Add Attendee Connections   | Create connections between attendees             |
+| View Rooms                 | Check available rooms                            |
+| Exit Application           | Close the application                            |
+
+
+## Application Features
 
 <table>
   <thead>
