@@ -2,16 +2,12 @@
 
 This repository contains the submission for the **Applied Databases** module, part of the **Higher Diploma in Science in Computing in Data Analytics at ATU**.
 
+This is a console Conference Management System built in Python, designed to handle core event data such as speakers, sessions, attendees, companies, and rooms.
 
-## Application Features
+The project combines two types of databases to showcase different data modeling approaches:
 
-- View Speakers and Sessions
-- View Attendees by Company
-- Add New Attendee
-- View Connected Attendees 
-- Add Attendee Connections
-- View Rooms 
-- Exit application
+- **MySQL** handles structured data and standard operations  
+- **Neo4j** manages relationships between attendees through a graph-based approach  
 
 ---
 ## Application Features
@@ -26,64 +22,14 @@ This repository contains the submission for the **Applied Databases** module, pa
 | View Rooms                 | Check available rooms                            |
 | Exit Application           | Close the application                            |
 
-
-## Application Features
-
-<table>
-  <thead>
-    <tr>
-      <th>Feature</th>
-      <th>Description</th>
-      <th>Benefit</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><b>Speakers & Sessions</b></td>
-      <td>Browse all event speakers and their scheduled sessions</td>
-      <td>Stay informed about key presentations</td>
-    </tr>
-    <tr>
-      <td><b>Attendees by Company</b></td>
-      <td>View attendees grouped by their organizations</td>
-      <td>Easily find people from specific companies</td>
-    </tr>
-    <tr>
-      <td><b>Add New Attendee</b></td>
-      <td>Register and manage new participants</td>
-      <td>Keep attendee list up to date</td>
-    </tr>
-    <tr>
-      <td><b>Connected Attendees</b></td>
-      <td>Explore relationships between attendees</td>
-      <td>Understand networking connections</td>
-    </tr>
-    <tr>
-      <td><b>Add Connections</b></td>
-      <td>Create links between attendees</td>
-      <td>Support networking and relationship tracking</td>
-    </tr>
-    <tr>
-      <td><b>Rooms</b></td>
-      <td>View available rooms and their details</td>
-      <td>Plan sessions and navigation easily</td>
-    </tr>
-    <tr>
-      <td><b>Exit Application</b></td>
-      <td>Safely close the application</td>
-      <td>Clean and controlled shutdown</td>
-    </tr>
-  </tbody>
-</table>
-
 ---
+
 ## Technologies Used
 
 - Python 3
-- MySQL (via XAMPP / WAMP)
+- MySQL 
 - Neo4j
 - PyMySQL
-- Neo4j Python Driver
 
  ---
 
