@@ -1,5 +1,5 @@
 import pymysql
-
+ROOM_CACHE = None
 
 def get_connection():
     return pymysql.connect(
@@ -158,40 +158,26 @@ def add_new_attendee():
 
 
 def view_rooms():
-
     global ROOM_CACHE
 
- 
-
     if ROOM_CACHE is None:
-
         conn = get_connection()
-
         cursor = conn.cursor()
 
         cursor.execute("SELECT roomID, roomName, capacity FROM room")
-
         ROOM_CACHE = cursor.fetchall()
 
         cursor.close()
-
         conn.close()
 
- 
-
     print("\nRooms")
-
     print("-" * 40)
 
     for room in ROOM_CACHE:
-
         print(f"Room ID: {room[0]}")
         print(f"Room Name: {room[1]}")
         print(f"Capacity: {room[2]}")
         print("-" * 40)
-
-    cursor.close()
-    conn.close()
 
 
 def main():

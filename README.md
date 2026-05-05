@@ -1,4 +1,6 @@
-## Project Description
+# Applied Databases - Final Project
+
+# Project Description
 
 This repository contains the submission for the **Applied Databases** module, part of the **Higher Diploma in Science in Computing in Data Analytics at ATU**.
 
@@ -9,7 +11,7 @@ The project combines two types of databases to showcase different data modeling 
 - **MySQL** handles structured data and standard operations  
 - **Neo4j** manages relationships between attendees through a graph-based approach  
 
----
+
 ## Application Features
 
 | Feature                     | Description                                      |
@@ -22,16 +24,14 @@ The project combines two types of databases to showcase different data modeling 
 | View Rooms                 | Check available rooms                            |
 | Exit Application           | Close the application                            |
 
----
 
 ## Technologies Used
 
 - Python 3
-- MySQL 
+- MySQL (XAMPP)
 - Neo4j
 - PyMySQL
 
- ---
 
 ## Getting Started
 
@@ -46,6 +46,7 @@ Follow these steps to run the project locally.
 ### 2. Install dependencies
 
 `pip install mysql-connector-python`
+
 `pip install neo4j`
 
 ### 3. Set up databases
