@@ -28,3 +28,20 @@ def get_attendee_name(attendee_id):
     conn.close()
 
     return attendee
+
+
+def attendee_exists(attendee_id):
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute(
+        "SELECT attendeeID FROM attendee WHERE attendeeID = %s",
+        (attendee_id,)
+    )
+
+    result = cursor.fetchone()
+
+    cursor.close()
+    conn.close()
+
+    return result is not None

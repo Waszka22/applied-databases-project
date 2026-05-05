@@ -1,6 +1,6 @@
 import pymysql
-from neo4j_db import get_connected_attendees
-from mysql_db import get_attendee_name
+from neo4j_db import get_connected_attendees, add_connection, connection_exists
+from mysql_db import get_attendee_name, attendee_exists
 
 ROOM_CACHE = None
 
@@ -117,6 +117,19 @@ def add_new_attendee():
     gender = input("Enter Gender (M/F): ").strip().upper()
     company_id = input("Enter Company ID: ").strip()
 
+
+    if not attendee_id.isdigit():
+
+        print("Invalid Attendee ID.")
+
+        return
+
+    if not company_id.isdigit():
+
+        print("Invalid Company ID.")
+
+        return
+
     if gender not in ["M", "F"]:
         print("Invalid gender.")
         return
@@ -185,6 +198,30 @@ def view_connected_attendees():
             print(f"Connected to ID {c['id']}")
 
 
+def add_attendee_connection():
+    id1 = input("Enter first Attendee ID: ").strip()
+    id2 = input("Enter second Attendee ID: ").strip()
+
+    if not id1.isdigit() or not id2.isdigit():
+        print("Invalid attendee ID.")
+        return
+
+    if id1 == id2:
+        print("An attendee cannot be connected to themselves.")
+        return
+
+    if not attendee_exists(id1) or not attendee_exists(id2):
+        print("One or both attendees do not exist.")
+        return
+
+    if connection_exists(id1, id2):
+        print("These attendees are already connected.")
+        return
+
+    add_connection(id1, id2)
+    print("Connection successfully added.")
+
+
 def view_rooms():
     global ROOM_CACHE
 
@@ -215,6 +252,7 @@ def main():
         print("2 - View Attendees by Company")
         print("3 - Add New Attendee")
         print("4 - View Connected Attendees")
+        print("5 - Add Attendee Connection")
         print("6 - View Rooms")
         print("x - Exit")
 
@@ -231,6 +269,9 @@ def main():
 
         elif choice == "4":
             view_connected_attendees()
+
+        elif choice == "5":
+            add_attendee_connection()
 
         elif choice == "6":
             view_rooms()
