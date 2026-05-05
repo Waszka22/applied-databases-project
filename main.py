@@ -1,5 +1,9 @@
 import pymysql
+from neo4j_db import get_connected_attendees
+from mysql_db import get_attendee_name
+
 ROOM_CACHE = None
+
 
 def get_connection():
     return pymysql.connect(
@@ -157,6 +161,30 @@ def add_new_attendee():
         conn.close()
 
 
+def view_connected_attendees():
+    attendee_id = input("Enter Attendee ID: ").strip()
+
+    if not attendee_id.isdigit():
+        print("Invalid attendee ID.")
+        return
+
+    attendee = get_attendee_name(attendee_id)
+
+    if attendee is None:
+        print("Attendee does not exist.")
+        return
+
+    connections = get_connected_attendees(attendee_id)
+
+    print(f"\nAttendee: {attendee[0]}")
+
+    if not connections:
+        print("No connections.")
+    else:
+        for c in connections:
+            print(f"Connected to ID {c['id']}")
+
+
 def view_rooms():
     global ROOM_CACHE
 
@@ -186,6 +214,7 @@ def main():
         print("1 - View Speakers & Sessions")
         print("2 - View Attendees by Company")
         print("3 - Add New Attendee")
+        print("4 - View Connected Attendees")
         print("6 - View Rooms")
         print("x - Exit")
 
@@ -200,6 +229,9 @@ def main():
         elif choice == "3":
             add_new_attendee()
 
+        elif choice == "4":
+            view_connected_attendees()
+
         elif choice == "6":
             view_rooms()
 
@@ -209,7 +241,6 @@ def main():
 
         else:
             print("Invalid option")
-
 
 
 main()

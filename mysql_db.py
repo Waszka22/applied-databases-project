@@ -1,0 +1,30 @@
+
+import pymysql
+
+
+def get_connection():
+    return pymysql.connect(
+        host="127.0.0.1",
+        user="root",
+        password="",
+        database="appdbproj",
+        port=3306,
+        connect_timeout=5
+    )
+
+
+def get_attendee_name(attendee_id):
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute(
+        "SELECT attendeeName FROM attendee WHERE attendeeID = %s",
+        (attendee_id,)
+    )
+
+    attendee = cursor.fetchone()
+
+    cursor.close()
+    conn.close()
+
+    return attendee
