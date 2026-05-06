@@ -4,7 +4,7 @@ from mysql_db import get_attendee_name, attendee_exists
 
 ROOM_CACHE = None
 
-
+# ---------- MYSQL Connection ---------
 def get_connection():
     return pymysql.connect(
         host="127.0.0.1",
@@ -15,7 +15,7 @@ def get_connection():
         connect_timeout=5
     )
 
-
+# ---------- 1. View Speakers & Sessions ----------
 def view_speakers_sessions():
     search = input("Enter speaker name or part of name: ")
 
@@ -47,7 +47,7 @@ def view_speakers_sessions():
     cursor.close()
     conn.close()
 
-
+# ---------- 2. View Attendees By Company ----------
 def view_attendees_by_company():
     while True:
         company_input = input("Enter Company ID: ").strip()
@@ -109,7 +109,8 @@ def view_attendees_by_company():
         conn.close()
         break
 
-
+ 
+# ---------- 3. Add New Attendee ----------
 def add_new_attendee():
     attendee_id = input("Enter Attendee ID: ").strip()
     name = input("Enter Attendee Name: ").strip()
@@ -173,7 +174,9 @@ def add_new_attendee():
         cursor.close()
         conn.close()
 
+ 
 
+# ---------- 4. View Connected Attendee ----------
 def view_connected_attendees():
     attendee_id = input("Enter Attendee ID: ").strip()
 
@@ -198,6 +201,8 @@ def view_connected_attendees():
             print(f"Connected to ID {c['id']}")
 
 
+
+# ---------- 5. Add Attendee Connection ----------
 def add_attendee_connection():
     id1 = input("Enter first Attendee ID: ").strip()
     id2 = input("Enter second Attendee ID: ").strip()
@@ -221,7 +226,7 @@ def add_attendee_connection():
     add_connection(id1, id2)
     print("Connection successfully added.")
 
-
+# ---------- 6. View Rooms----------
 def view_rooms():
     global ROOM_CACHE
 
@@ -244,11 +249,11 @@ def view_rooms():
         print(f"Capacity: {room[2]}")
         print("-" * 40)
 
-
+# -------- Main Menu --------
 def main():
     while True:
         print("\nMENU")
-        print("1 - View Speakers & Sessions")
+        print("1 - View Speakers and Sessions")
         print("2 - View Attendees by Company")
         print("3 - Add New Attendee")
         print("4 - View Connected Attendees")
@@ -285,3 +290,6 @@ def main():
 
 
 main()
+
+
+
