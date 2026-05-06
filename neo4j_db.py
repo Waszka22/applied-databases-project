@@ -1,4 +1,4 @@
-# Neo4j datavase functions for attendee conection
+# Neo4j database functions for attendee conection
 
 from neo4j import GraphDatabase
 
@@ -60,7 +60,18 @@ def add_connection(id1, id2):
         """
         session.run(query, id1=int(id1), id2=int(id2))
 
+# ---------- Close Neo4j Connection ----------
+def close_driver():
+    """
+    Close Neo4j driver connection.
+    """
+
+    driver.close()        
 
 
 
-  # Ref: https://neo4j.com/docs/python-manual/current/connect/      
+
+  # Ref: 
+ 
+  # #https://neo4j.com/docs/python-manual/current/connect/      
+  # https://medium.com/@kasperjuunge/how-to-use-neo4j-with-python-1818159634cd
