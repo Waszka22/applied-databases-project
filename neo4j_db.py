@@ -1,4 +1,4 @@
-# Neo4j database functions for attendee conection
+# Neo4j database functions for attendee conections
 
 from neo4j import GraphDatabase
 

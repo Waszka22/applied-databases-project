@@ -45,3 +45,31 @@ def attendee_exists(attendee_id):
     conn.close()
 
     return result is not None
+
+
+
+def get_attendees_by_company(company_id: int):
+
+    """
+    Returns a list of attendees belonging to a specific company.
+
+    """
+    conn = get_connection()
+
+    cursor = conn.cursor()
+
+    cursor.execute(
+
+        "SELECT attendeeID, attendeeName FROM attendee WHERE attendeeCompanyID = %s",
+
+        (company_id,)
+
+    )
+
+    results = cursor.fetchall()
+
+    cursor.close()
+
+    conn.close()
+
+    return results
