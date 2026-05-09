@@ -17,7 +17,8 @@ def get_connection():
 
 # ---------- 1. View Speakers & Sessions ----------
 def view_speakers_sessions():
-    search = input("Enter speaker name or part of name: ")
+
+    search = input("\nEnter speaker name: ")
 
     conn = get_connection()
     cursor = conn.cursor()
@@ -33,16 +34,14 @@ def view_speakers_sessions():
     results = cursor.fetchall()
 
     if not results:
-        print("\nNo speaker match search string.")
+        print("\nNo speakers found of that name")
+
     else:
-        print("\nSpeaker Sessions")
-        print("-" * 40)
+        print(f"\nSession Details For : {search}")
+        print("-" * 55)
 
         for row in results:
-            print(f"Speaker: {row[0]}")
-            print(f"Session: {row[1]}")
-            print(f"Room: {row[2]}")
-            print("-" * 40)
+            print(f"{row[0]} | {row[1]} | {row[2]}")
 
     cursor.close()
     conn.close()
@@ -94,16 +93,17 @@ def view_attendees_by_company():
             conn.close()
             continue
 
-        print(f"\nAttendees from {company_name}")
-        print("-" * 50)
+        print(f"\n{company_name} Attendees")
+        print("-" * 100)
 
         for attendee in attendees:
-            print(f"Name: {attendee[0]}")
-            print(f"DOB: {attendee[1]}")
-            print(f"Session: {attendee[2]}")
-            print(f"Speaker: {attendee[3]}")
-            print(f"Room: {attendee[4]}")
-            print("-" * 50)
+            print(
+                f"{attendee[0]} | "
+                f"{attendee[1]} | "
+                f"{attendee[2]} | "
+                f"{attendee[3]} | "
+                f"{attendee[4]}"
+            )
 
         cursor.close()
         conn.close()
@@ -251,15 +251,22 @@ def view_rooms():
 
 # -------- Main Menu --------
 def main():
+
     while True:
+
+        print("\nConference Management")
+        print("-" * 22)
+
         print("\nMENU")
+        print("====")
+        
         print("1 - View Speakers and Sessions")
         print("2 - View Attendees by Company")
         print("3 - Add New Attendee")
         print("4 - View Connected Attendees")
         print("5 - Add Attendee Connection")
         print("6 - View Rooms")
-        print("x - Exit")
+        print("x - Exit application")
 
         choice = input("Choice: ").strip().lower()
 
