@@ -1,6 +1,7 @@
 import pymysql
 from neo4j_db import get_connected_attendees, add_connection, connection_exists
 from mysql_db import get_attendee_name, attendee_exists
+from datetime import datetime
 
 ROOM_CACHE = None
 
@@ -112,26 +113,8 @@ def view_attendees_by_company():
 
 # ---------- 3. Add New Attendee ----------
 def add_new_attendee():
+
     attendee_id = input("Enter Attendee ID: ").strip()
-    name = input("Enter Attendee Name: ").strip()
-    dob = input("Enter DOB (YYYY-MM-DD): ").strip()
-    gender = input("Enter Gender (Male/Female): ").strip().capitalize()
-
-
-    # Check gender 
-    if gender not in ["Male", "Female"]:
-        print("***ERROR*** Gender must be Male or F.")
-        return
-
-    company_id = input("Enter Company ID: ").strip()
-
-    if not attendee_id.isdigit():
-        print("Invalid Attendee ID.")
-        return
-
-    if not company_id.isdigit():
-        print("Invalid Company ID.")
-        return
 
     conn = get_connection()
     cursor = conn.cursor()
@@ -143,7 +126,28 @@ def add_new_attendee():
         )
 
         if cursor.fetchone() is not None:
-            print("Attendee ID already exists.")
+            print(f"*** ERROR *** Attendee ID: {attendee_id} already exists")
+            return
+
+        name = input("Enter Attendee Name: ").strip()
+        dob = input("Enter DOB (YYYY-MM-DD): ").strip()
+
+        try:
+            datetime.strptime(dob, "%Y-%m-%d")
+        except ValueError:
+            print("*** ERROR *** Incorrect date value. Use YYYY-MM-DD format")
+            return
+
+        gender = input("Enter Gender (Male/Female): ").strip().capitalize()
+
+        if gender not in ["Male", "Female"]:
+            print("*** ERROR *** Gender must be Male or Female")
+            return
+
+        company_id = input("Enter Company ID: ").strip()
+
+        if not company_id.isdigit():
+            print("*** ERROR *** Invalid Company ID")
             return
 
         cursor.execute(
@@ -152,11 +156,11 @@ def add_new_attendee():
         )
 
         if cursor.fetchone() is None:
-            print("Invalid Company ID.")
+            print(f"*** ERROR *** Company ID: {company_id} does not exist")
             return
 
         query = """
-            INSERT INTO attendee 
+            INSERT INTO attendee
             (attendeeID, attendeeName, attendeeDOB, attendeeGender, attendeeCompanyID)
             VALUES (%s, %s, %s, %s, %s)
         """
@@ -167,12 +171,11 @@ def add_new_attendee():
         print("Attendee successfully added.")
 
     except Exception as e:
-        print("Database error:", e)
+        print("*** ERROR ***", e)
 
     finally:
         cursor.close()
         conn.close()
- 
 
 # ---------- 4. View Connected Attendee ----------
 def view_connected_attendees():
@@ -223,6 +226,8 @@ def add_attendee_connection():
 
     add_connection(id1, id2)
     print("Connection successfully added.")
+
+
 
 # ---------- 6. View Rooms----------
 def view_rooms():
