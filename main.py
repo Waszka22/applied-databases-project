@@ -109,30 +109,28 @@ def view_attendees_by_company():
         conn.close()
         break
 
- 
+
 # ---------- 3. Add New Attendee ----------
 def add_new_attendee():
     attendee_id = input("Enter Attendee ID: ").strip()
     name = input("Enter Attendee Name: ").strip()
     dob = input("Enter DOB (YYYY-MM-DD): ").strip()
-    gender = input("Enter Gender (M/F): ").strip().upper()
+    gender = input("Enter Gender (Male/Female): ").strip().capitalize()
+
+
+    # Check gender 
+    if gender not in ["Male", "Female"]:
+        print("***ERROR*** Gender must be Male or F.")
+        return
+
     company_id = input("Enter Company ID: ").strip()
 
-
     if not attendee_id.isdigit():
-
         print("Invalid Attendee ID.")
-
         return
 
     if not company_id.isdigit():
-
         print("Invalid Company ID.")
-
-        return
-
-    if gender not in ["M", "F"]:
-        print("Invalid gender.")
         return
 
     conn = get_connection()
@@ -158,7 +156,8 @@ def add_new_attendee():
             return
 
         query = """
-            INSERT INTO attendee (attendeeID, attendeeName, attendeeDOB, attendeeGender, attendeeCompanyID)
+            INSERT INTO attendee 
+            (attendeeID, attendeeName, attendeeDOB, attendeeGender, attendeeCompanyID)
             VALUES (%s, %s, %s, %s, %s)
         """
 
@@ -173,7 +172,6 @@ def add_new_attendee():
     finally:
         cursor.close()
         conn.close()
-
  
 
 # ---------- 4. View Connected Attendee ----------
