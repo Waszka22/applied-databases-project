@@ -31,6 +31,7 @@ The project combines two types of databases to showcase different data modeling 
 - MySQL (XAMPP)
 - Neo4j
 - PyMySQL
+- Neo4j Python Driver
 
 
 ## Getting Started
@@ -45,7 +46,7 @@ Follow these steps to run the project locally.
 
 ### 2. Install dependencies
 
-`pip install mysql-connector-python`
+`pip install pymysql`
 
 `pip install neo4j`
 
@@ -59,6 +60,19 @@ Follow these steps to run the project locally.
 `python main.py`
 
 
+# Project Structure
 
+```text
+applied-databases-project/
+
+├── main.py            # Main application entry point and menu system
+├── mysql_db.py        # MySQL helper functions and SQL queries
+├── neo4j_db.py        # Neo4j helper functions for attendee connection management
+├── config.py          # Database configuration settings
+├── requirements.txt   # Required Python packages
+├── GitLink.txt        # GitHub repository link
+├── README.md          # Project documentation
+└── .gitignore         # Git ignored files and folders
+```
 
 
