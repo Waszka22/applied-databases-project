@@ -53,7 +53,7 @@ def view_attendees_by_company():
         company_input = input("Enter Company ID: ").strip()
 
         if not company_input.isdigit() or int(company_input) <= 0:
-            print("Invalid Company ID. Please enter a number greater than 0.")
+            print("Invalid Company ID. Please enter a number greater than 0")
             continue
 
         company_id = int(company_input)
@@ -168,7 +168,7 @@ def add_new_attendee():
         cursor.execute(query, (attendee_id, name, dob, gender, company_id))
         conn.commit()
 
-        print("Attendee successfully added.")
+        print("Attendee successfully added")
 
     except Exception as e:
         print("*** ERROR ***", e)
@@ -183,7 +183,7 @@ def view_connected_attendees():
     attendee_id = input("Enter Attendee ID: ").strip()
 
     if not attendee_id.isdigit():
-        print("Invalid attendee ID.")
+        print("***ERROR*** 5Invalid attendee ID")
         return
 
     attendee = get_attendee_name(attendee_id)
@@ -220,19 +220,19 @@ def add_attendee_connection():
         return
 
     if id1 == id2:
-        print("An attendee cannot be connected to themselves.")
+        print("An attendee cannot be connected to themselves")
         return
 
     if not attendee_exists(id1) or not attendee_exists(id2):
-        print("One or both attendees do not exist.")
+        print("One or both attendees do not exist")
         return
 
     if connection_exists(id1, id2):
-        print("These attendees are already connected.")
+        print("These attendees are already connected")
         return
 
     add_connection(id1, id2)
-    print("Connection successfully added.")
+    print(f"Attendee {id1} is now connected to Attendee {id2}")
 
 
 
