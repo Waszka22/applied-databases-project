@@ -1,5 +1,5 @@
 import pymysql
-from neo4j_db import get_connected_attendees, add_connection, connection_exists
+from neo4j_db import get_connected_attendees, add_connection, connection_exists, driver
 from mysql_db import get_attendee_name, attendee_exists
 from datetime import datetime
 
@@ -318,6 +318,61 @@ def view_conference_dashboard():
         cursor.close()
         conn.close()
 
+
+# ---------- 8. Delete Attendee ----------
+def delete_attendee():
+
+    attendee_id = input("Enter Attendee ID to delete: ").strip()
+
+    if not attendee_id.isdigit():
+        print("*** ERROR *** Attendee ID must be numeric")
+        return
+
+    if not attendee_exists(attendee_id):
+        print(f"*** ERROR *** Attendee ID: {attendee_id} does not exist")
+        return
+
+    confirm = input(f"Are you sure you want to delete attendee {attendee_id}? (yes/no): ").strip().lower()
+
+    if confirm != "yes":
+        print("Delete cancelled.")
+        return
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    try:
+       
+        cursor.execute(
+            "DELETE FROM registration WHERE attendeeID = %s",
+            (attendee_id,)
+        )
+
+        cursor.execute(
+            "DELETE FROM attendee WHERE attendeeID = %s",
+            (attendee_id,)
+        )
+
+        conn.commit()
+
+        with driver.session() as session:
+            query = """
+            MATCH (a:Attendee {AttendeeID: $id})
+            DETACH DELETE a
+            """
+
+            session.run(query, id=int(attendee_id))
+
+        print(f"Attendee {attendee_id} successfully deleted.")
+
+    except Exception as e:
+        print("*** ERROR ***", e)
+
+    finally:
+        cursor.close()
+        conn.close()
+
+
 # -------- Main Menu --------
 def main():
 
@@ -336,6 +391,7 @@ def main():
         print("5 - Add Attendee Connection")
         print("6 - View Rooms")
         print("7 - View Conference Dashboard")
+        print("8 - Delete Attendee")
         print("x - Exit application")
 
         choice = input("Choice: ").strip().lower()
@@ -360,6 +416,9 @@ def main():
             
         elif choice == "7":
             view_conference_dashboard()
+
+        elif choice == "8":
+            delete_attendee()    
 
         elif choice == "x":
             print("Goodbye!")
