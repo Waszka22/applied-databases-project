@@ -209,32 +209,32 @@ def view_connected_attendees():
                 print(f"{c['id']} | {connected_attendee[0]}")
 
 
-
 # ---------- 5. Add Attendee Connection ----------
 def add_attendee_connection():
-    id1 = input("Enter first Attendee ID: ").strip()
-    id2 = input("Enter second Attendee ID: ").strip()
 
-    if not id1.isdigit() or not id2.isdigit():
-        print("Invalid attendee ID.")
-        return
+    while True:
+        id1 = input("Enter Attendee 1 ID: ").strip()
+        id2 = input("Enter Attendee 2 ID: ").strip()
 
-    if id1 == id2:
-        print("An attendee cannot be connected to themselves")
-        return
+        if not id1.isdigit() or not id2.isdigit():
+            print("*** ERROR *** Attendee IDs must be numbers")
+            continue
 
-    if not attendee_exists(id1) or not attendee_exists(id2):
-        print("One or both attendees do not exist")
-        return
+        if id1 == id2:
+            print("*** ERROR *** An attendee cannot connect to him/herself")
+            continue
 
-    if connection_exists(id1, id2):
-        print("These attendees are already connected")
-        return
+        if not attendee_exists(id1) or not attendee_exists(id2):
+            print("*** ERROR *** One or both attendees do not exist")
+            continue
 
-    add_connection(id1, id2)
-    print(f"Attendee {id1} is now connected to Attendee {id2}")
+        if connection_exists(id1, id2):
+            print("*** ERROR *** Attendees are already connected")
+            continue
 
-
+        add_connection(id1, id2)
+        print(f"Attendee {id1} is now connected to Attendee {id2}")
+        break
 
 # ---------- 6. View Rooms----------
 def view_rooms():
@@ -259,6 +259,65 @@ def view_rooms():
         print(f"Capacity: {room[2]}")
         print("-" * 40)
 
+
+# ---------- 7. Innovation: Conference Dashboard ----------
+def view_conference_dashboard():
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    try:
+        cursor.execute("SELECT COUNT(*) FROM attendee")
+        total_attendees = cursor.fetchone()[0]
+
+        cursor.execute("""
+            SELECT s.sessionTitle, COUNT(reg.attendeeID) AS registrations
+            FROM session s
+            LEFT JOIN registration reg ON s.sessionID = reg.sessionID
+            GROUP BY s.sessionID, s.sessionTitle
+            ORDER BY registrations DESC
+            LIMIT 1
+        """)
+        top_session = cursor.fetchone()
+
+        cursor.execute("""
+            SELECT c.companyName, COUNT(a.attendeeID) AS attendees
+            FROM company c
+            LEFT JOIN attendee a ON c.companyID = a.attendeeCompanyID
+            GROUP BY c.companyID, c.companyName
+            ORDER BY attendees DESC
+            LIMIT 1
+        """)
+        top_company = cursor.fetchone()
+
+        print("\n" + "-" * 55)
+        print("                 CONFERENCE DASHBOARD")
+        print("-" * 55)
+
+        print(f"Total Attendees        : {total_attendees}")
+
+        if top_session:
+            print(f"Most Popular Session   : {top_session[0]}")
+            print(f"Session Registrations  : {top_session[1]}")
+        else:
+            print("Most Popular Session   : N/A")
+            print("Session Registrations  : 0")
+
+        if top_company:
+            print(f"Top Company            : {top_company[0]}")
+            print(f"Company Attendee Count : {top_company[1]}")
+        else:
+            print("Top Company            : N/A")
+            print("Company Attendee Count : 0")
+
+        print("-" * 55)
+
+    except Exception as e:
+        print("*** ERROR ***", e)
+
+    finally:
+        cursor.close()
+        conn.close()
+
 # -------- Main Menu --------
 def main():
 
@@ -276,6 +335,7 @@ def main():
         print("4 - View Connected Attendees")
         print("5 - Add Attendee Connection")
         print("6 - View Rooms")
+        print("7 - View Conference Dashboard")
         print("x - Exit application")
 
         choice = input("Choice: ").strip().lower()
@@ -297,6 +357,9 @@ def main():
 
         elif choice == "6":
             view_rooms()
+            
+        elif choice == "7":
+            view_conference_dashboard()
 
         elif choice == "x":
             print("Goodbye!")
