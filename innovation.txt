@@ -1,10 +1,26 @@
-Innovation: Conference Dashboard
+Project Innovation Features
+---
 
-I added an additional menu option that displays a conference dashboard using SQL aggregate queries.
+1. Conference Dashboard
 
-The dashboard shows:
+An additional dashboard feature was added to the application.
+
+This dashboard displays:
 - total number of attendees
-- most popular session based on registrations
+- most popular conference session
 - company with the highest number of attendees
 
-This improves the application by providing useful summary statistics for conference organisers.
+This feature uses SQL aggregate queries and improves the usability of the system by providing quick conference statistics and insights.
+
+---
+
+2. Delete Attendee
+
+An additional attendee deletion feature was implemented.
+
+This functionality:
+- removes an attendee from the MySQL database
+- removes attendee connections from the Neo4j database
+- asks the user for confirmation before deletion
+
+This innovation demonstrates CRUD operations across both relational and graph databases.
