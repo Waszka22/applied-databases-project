@@ -147,7 +147,7 @@ def add_new_attendee():
         company_id = input("Enter Company ID: ").strip()
 
         if not company_id.isdigit():
-            print("*** ERROR *** Invalid Company ID")
+            print(f"*** ERROR *** Company ID: {company_id} does not exist")
             return
 
         cursor.execute(
@@ -177,7 +177,8 @@ def add_new_attendee():
         cursor.close()
         conn.close()
 
-# ---------- 4. View Connected Attendee ----------
+
+# ---------- 4. View Connected Attendees ----------
 def view_connected_attendees():
     attendee_id = input("Enter Attendee ID: ").strip()
 
@@ -188,18 +189,24 @@ def view_connected_attendees():
     attendee = get_attendee_name(attendee_id)
 
     if attendee is None:
-        print("Attendee does not exist.")
+        print("***ERROR *** Attendee does not exist")
         return
 
     connections = get_connected_attendees(attendee_id)
 
-    print(f"\nAttendee: {attendee[0]}")
+    print(f"\nAttendee Name: {attendee[0]}")
+    print("-" * 22)
 
     if not connections:
         print("No connections.")
     else:
+        print("These attendees are connected:")
+
         for c in connections:
-            print(f"Connected to ID {c['id']}")
+            connected_attendee = get_attendee_name(c["id"])
+
+            if connected_attendee:
+                print(f"{c['id']} | {connected_attendee[0]}")
 
 
 
