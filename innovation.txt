@@ -1,0 +1,10 @@
+Innovation: Conference Dashboard
+
+I added an additional menu option that displays a conference dashboard using SQL aggregate queries.
+
+The dashboard shows:
+- total number of attendees
+- most popular session based on registrations
+- company with the highest number of attendees
+
+This improves the application by providing useful summary statistics for conference organisers.

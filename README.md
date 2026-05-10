@@ -69,6 +69,7 @@ applied-databases-project/
 ├── mysql_db.py        # MySQL helper functions and SQL queries
 ├── neo4j_db.py        # Neo4j helper functions for attendee connection management
 ├── config.py          # Database configuration settings
+├── innovation.txt     # Description of additional project innovation features
 ├── requirements.txt   # Required Python packages
 ├── GitLink.txt        # GitHub repository link
 ├── README.md          # Project documentation
