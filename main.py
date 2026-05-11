@@ -36,6 +36,7 @@ def view_speakers_sessions():
 
     if not results:
         print("\nNo speakers found of that name")
+        print("-" * 55)
 
     else:
         print(f"\nSession Details For : {search}")
@@ -53,7 +54,7 @@ def view_attendees_by_company():
         company_input = input("Enter Company ID: ").strip()
 
         if not company_input.isdigit() or int(company_input) <= 0:
-            print("Invalid Company ID. Please enter a number greater than 0")
+            print("Invalid Company ID")
             continue
 
         company_id = int(company_input)
@@ -69,7 +70,7 @@ def view_attendees_by_company():
         company = cursor.fetchone()
 
         if company is None:
-            print("Company does not exist.")
+            print(f"Company with ID {company_id} doesn't exist")
             cursor.close()
             conn.close()
             continue
@@ -183,7 +184,7 @@ def view_connected_attendees():
     attendee_id = input("Enter Attendee ID: ").strip()
 
     if not attendee_id.isdigit():
-        print("***ERROR*** 5Invalid attendee ID")
+        print("***ERROR*** Invalid attendee ID")
         return
 
     attendee = get_attendee_name(attendee_id)
