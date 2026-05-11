@@ -93,7 +93,7 @@ def view_attendees_by_company():
             print(f"No attendees found for {company_name}.")
             cursor.close()
             conn.close()
-            continue
+            break
 
         print(f"\n{company_name} Attendees")
         print("-" * 100)
