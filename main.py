@@ -1,3 +1,6 @@
+# Applied Databases Project
+# Conference Management System
+
 import pymysql
 from neo4j_db import get_connected_attendees, add_connection, connection_exists, driver
 from mysql_db import get_attendee_name, attendee_exists
