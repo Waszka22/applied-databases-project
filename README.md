@@ -22,7 +22,7 @@ The project combines two types of databases to showcase different data modeling 
 | View Connected Attendees   | View attendee connections                        |
 | Add Attendee Connections   | Create connections between attendees             |
 | Conference Dashboard       | View conference statistics and insights          |
-| Delete Attende             | Remove attendee data from MySQL and Neo4j        |
+| Delete Attende             | Remove attendee                                  |
 | View Rooms                 | Check available rooms                            |
 | Exit Application           | Close the application                            |
 

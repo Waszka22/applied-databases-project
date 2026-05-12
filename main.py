@@ -323,7 +323,7 @@ def view_conference_dashboard():
         conn.close()
 
 
-# ---------- 8. Delete Attendee ----------
+# ---------- 8.Innovation:Delete Attendee ----------
 def delete_attendee():
 
     attendee_id = input("Enter Attendee ID to delete: ").strip()
