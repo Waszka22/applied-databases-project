@@ -51,10 +51,17 @@ Follow these steps to run the project locally.
 
 `pip install neo4j`
 
-### 3. Set up databases
+### 3. Database Setup
 
-* MySQL
-* Neo4j
+Before running the application:
+
+* Ensure MySQL Server is running.
+* Ensure Neo4j Desktop/Server is running.
+* Create the appdbproj database in MySQL.
+* Import the provided SQL data into MySQL.
+* Ensure Neo4j is running on:
+
+`bolt://localhost:7687`
 
 ### 4. Run the application
 
